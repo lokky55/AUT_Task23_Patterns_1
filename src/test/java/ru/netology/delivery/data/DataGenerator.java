@@ -30,7 +30,7 @@ public class DataGenerator {
     }
 
     public static String generatePhone(String locale) {
-        String phone = faker.phoneNumber().phoneNumber();        // использовать Faker
+        String phone = faker.phoneNumber().phoneNumber();
         return phone;
     }
 
