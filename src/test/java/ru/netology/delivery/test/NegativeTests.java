@@ -1,9 +1,9 @@
 package ru.netology.delivery.test;
 
 import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
 
 import java.time.LocalDate;
@@ -14,6 +14,16 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.openqa.selenium.Keys.DELETE;
 
 public class NegativeTests {
+
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());  // связывает Selenide c логгером
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");  // удаляем Listener после тестов
+    }
 
     @BeforeEach
     void openAndHoldBrowser() {
@@ -27,7 +37,7 @@ public class NegativeTests {
 
     @Test
     void invalidShouldBeErrorOfIncorrectCity() {
-        $("[data-test-id='city'] input").setValue("Moscow");
+        $("[data-test-id='city'] input").setValue("Москва"); // проваливаем тест для проверки работы Allure
         $("[data-test-id='name'] input").setValue("Мари-Анет Радонежская");
         $("[data-test-id='phone'] input").setValue("+79807133080");
         $("[data-test-id='agreement']").click();
